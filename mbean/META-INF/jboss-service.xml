@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE server PUBLIC "" "http://www.jboss.org/j2ee/dtd/jboss-service_4_2.dtd" >
+
+<server>
+
+  <local-directory path="bom"/>
+
+  <mbean code="com.orgecc.classpathinfo.mbean.Classpathinfo" name="com.orgecc.classpathinfo:service=Classpathinfo">
+  </mbean>
+
+</server>

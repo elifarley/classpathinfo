@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.orgecc.classpathinfo</groupId>
+    <artifactId>orgecc-classpathinfo-root</artifactId>
+    <version>default-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <artifactId>orgecc-classpathinfo-mbean</artifactId>
+  <packaging>jboss-sar</packaging>
+  <name>Orgecc Classpathinfo - MBean</name>
+
+  <properties>
+    <jboss.version>4.2.2.GA</jboss.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>orgecc-classpathinfo-lib</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.orgecc</groupId>
+      <artifactId>orgecc-root-info</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>jboss-system</artifactId>
+      <version>${jboss.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>jbossall-client</artifactId>
+      <version>${jboss.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>
