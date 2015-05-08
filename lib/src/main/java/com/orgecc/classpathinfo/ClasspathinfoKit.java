@@ -8,38 +8,43 @@ import java.net.URLConnection;
 
 import com.orgecc.util.Utils;
 
-public class ClasspathinfoKit {
+public final class ClasspathinfoKit {
+
+    private ClasspathinfoKit() {
+        // Utility class
+    }
 
     public static String getSourceLocation( final String className ) throws ClassNotFoundException {
         return getSourceLocation( getClass( className ) );
     }
 
-    public static String getSourceLocation( final Class c ) {
+    public static String getSourceLocation( final Class<?> cls ) {
 
         String exMsg = null;
         java.security.CodeSource codeSource = null;
 
         try {
-            codeSource = c.getProtectionDomain().getCodeSource();
+            codeSource = cls.getProtectionDomain().getCodeSource();
 
         } catch ( final Exception e ) {
             exMsg = e.toString();
         }
 
-        final URL classURL = codeSource == null ? getSourceURL( c ) : codeSource.getLocation();
+        final URL classURL = codeSource == null ? getSourceURL( cls ) : codeSource.getLocation();
 
         if ( classURL == null ) {
-            return c.getName() + ": (missing codeSource and classLoader)";
+            return cls.getName() + ": (missing codeSource and classLoader)";
         }
 
         final String path = classURL.getPath();
-        final File f = new File( path );
-        if ( !f.isFile() ) {
-            return c.getName() + ": " + path + " (not a file)"
+        final File file = new File( path );
+
+        if ( !file.isFile() ) {
+            return cls.getName() + ": " + path + " (not a file)"
                     + ( exMsg == null ? "" : "; " + exMsg );
         }
 
-        return String.format( "%s: %s (MD5: %s)%s", c.getName(), path, Utils.md5sum( f ),
+        return String.format( "%s: %s (MD5: %s)%s", cls.getName(), path, Utils.md5sum( file ),
                 exMsg == null ? "" : "; " + exMsg );
     }
 
@@ -50,11 +55,11 @@ public class ClasspathinfoKit {
 
     }
 
-    public static URL getSourceURL( final Class<?> c ) {
+    public static URL getSourceURL( final Class<?> cls ) {
 
         URL result =
-                getClassLoader( c ).getResource(
-                        c.getCanonicalName().replace( '.', '/' ) + ".class" );
+                getClassLoader( cls ).getResource(
+                        cls.getCanonicalName().replace( '.', '/' ) + ".class" );
 
         try {
 
@@ -66,16 +71,16 @@ public class ClasspathinfoKit {
             }
 
         } catch ( final IOException e ) {
-            // keep the original value of result
+            // Keep the original value of result
         }
 
         return result;
 
     }
 
-    public static ClassLoader getClassLoader( final Class<?> c ) {
+    public static ClassLoader getClassLoader( final Class<?> cls ) {
 
-        ClassLoader result = c.getClassLoader();
+        ClassLoader result = cls.getClassLoader();
 
         if ( result != null ) {
             return result;

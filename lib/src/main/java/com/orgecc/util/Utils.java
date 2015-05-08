@@ -5,12 +5,16 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
-public class Utils {
+public final class Utils {
 
-    public static String md5sum( final File f ) {
+    private Utils() {
+        // utility class
+    }
+
+    public static String md5sum( final File file ) {
 
         try {
-            return md5sum( new FileInputStream( f ) );
+            return md5sum( new FileInputStream( file ) );
 
         } catch ( final Exception e ) {
             throw new RuntimeException( e );
@@ -18,19 +22,19 @@ public class Utils {
 
     }
 
-    public static String md5sum( final InputStream fis ) {
+    public static String md5sum( final InputStream in ) {
 
         try {
 
-            final MessageDigest md = MessageDigest.getInstance( "MD5" );
+            final MessageDigest md5 = MessageDigest.getInstance( "MD5" );
 
             final byte[] buffer = new byte[ 8192 ];
             int count;
-            while ( ( count = fis.read( buffer ) ) > 0 ) {
-                md.update( buffer, 0, count );
+            while ( ( count = in.read( buffer ) ) > 0 ) {
+                md5.update( buffer, 0, count );
             }
 
-            return bytesToHexString( md.digest() );
+            return bytesToHexString( md5.digest() );
 
         } catch ( final Exception e ) {
             throw new RuntimeException( e );
@@ -40,12 +44,12 @@ public class Utils {
 
     public static String bytesToHexString( final byte[] bytes ) {
 
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder result = new StringBuilder( bytes.length * 2 );
         for ( final byte b: bytes ) {
-            sb.append( String.format( "%02x", b & 0xff ) );
+            result.append( String.format( "%02x", b & 0xff ) );
         }
 
-        return sb.toString();
+        return result.toString();
 
     }
 
