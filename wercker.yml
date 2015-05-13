@@ -2,13 +2,13 @@ box: mihkels/java8-oracle@0.0.1
 build:
   steps:
     - script:
-        name: Show base information
-          code: |
-            echo $JAVA_HOME
-            maven --version
-            java -version
-            javac -version
-      - script:
-          name: Install package
-          code: |
-            mvn -U install
+      name: Show base information
+        code: |
+          echo $JAVA_HOME
+          maven --version
+          java -version
+          javac -version
+    - script:
+      name: Install package
+      code: |
+        mvn -U install
