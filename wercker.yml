@@ -3,11 +3,11 @@ build:
   steps:
     - script:
       name: Show base information
-        code: |
-          echo $JAVA_HOME
-          maven --version
-          java -version
-          javac -version
+      code: |
+        echo $JAVA_HOME
+        maven --version
+        java -version
+        javac -version
     - script:
       name: Install package
       code: |
