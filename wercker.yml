@@ -5,7 +5,7 @@ build:
       name: Show base information
       code: |
         echo $JAVA_HOME
-        maven --version
+        mvn --version
         java -version
         javac -version
     - script:
