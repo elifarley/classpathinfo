@@ -2,6 +2,7 @@ package com.orgecc.classpathinfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectStreamClass;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -12,6 +13,17 @@ public final class ClasspathinfoKit {
 
     private ClasspathinfoKit() {
         // Utility class
+    }
+
+    public static String getSerialVersionUID( final Class<?> cls ) {
+
+        final ObjectStreamClass osc = ObjectStreamClass.lookup( cls );
+        if ( osc == null ) {
+            return "";
+        }
+
+        return String.valueOf( osc.getSerialVersionUID() );
+
     }
 
     public static String getSourceLocation( final String className ) throws ClassNotFoundException {
@@ -44,8 +56,9 @@ public final class ClasspathinfoKit {
                     + ( exMsg == null ? "" : "; " + exMsg );
         }
 
-        return String.format( "%s: %s (MD5: %s)%s", cls.getName(), path, Utils.md5sum( file ),
-                exMsg == null ? "" : "; " + exMsg );
+        return String.format( "%s (SN: %s): %s (MD5: %s)%s", cls.getName(),
+                getSerialVersionUID( cls ), path, Utils.md5sum( file ), exMsg == null ? "" : "; "
+                        + exMsg );
     }
 
     public static Class<?> getClass( final String className ) throws ClassNotFoundException {
