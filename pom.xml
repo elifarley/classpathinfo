@@ -20,6 +20,10 @@
   <description></description>
   <inceptionYear>2013</inceptionYear>
 
+  <properties>
+    <java-target-version>1.5</java-target-version>
+  </properties>
+
   <modules>
     <module>lib</module>
     <module>mbean</module>

@@ -15,4 +15,14 @@
   <artifactId>orgecc-classpathinfo-lib</artifactId>
   <name>Orgecc Classpathinfo - Lib</name>
 
+  <dependencies>
+
+    <dependency>
+      <groupId>com.orgecc.utils</groupId>
+      <artifactId>orgecc-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+  </dependencies>
+
 </project>
